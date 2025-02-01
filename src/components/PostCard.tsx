@@ -1,11 +1,13 @@
 import React from "react";
-import { Post } from "../../types/postTypes";
+import { Post } from "../types/postTypes";
+import { Link } from "react-router-dom";
 
 interface PostCardProps {
   post: Post;
+  isDetail?: boolean;
 }
 
-const PostCard: React.FC<PostCardProps> = ({ post }) => {
+const PostCard: React.FC<PostCardProps> = ({ post, isDetail }) => {
   // 日付をフォーマットする関数
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -16,8 +18,9 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
     }).format(date);
   };
 
-  return (
-    <div className="border bg-white p-4 mt-8 ">
+  // カード内容（共通部分）
+  const content = (
+    <>
       {/* 上部のレイアウト: 日付を左側、カテゴリを右側に表示 */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <p className="text-xs text-gray-500">{formatDate(post.createdAt)}</p>
@@ -37,7 +40,21 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       <h2 className="text-2xl mt-4 mb-2 truncate text-left">{post.title}</h2>
 
       {/* 内容 */}
-      <p className="text-gray-600 mt-2 line-clamp-2">{post.content}</p>
+      <p className={`text-gray-600 mt-2 ${isDetail ? "" : "line-clamp-2"}`}>
+        {post.content}
+      </p>
+    </>
+  );
+
+  return (
+    <div className={`bg-white ${isDetail ? "" : " p-4 border mt-8"}`}>
+      {isDetail ? (
+        <div>{content}</div>
+      ) : (
+        <Link to={`/posts/${post.id}`} className="block">
+          {content}
+        </Link>
+      )}
     </div>
   );
 };

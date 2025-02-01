@@ -1,15 +1,23 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Layout from "./components/components/Layout";
+import "./index.css";
+import PostDetail from "./pages/PostDetail";
+import PostList from "./pages/PostList";
+import Layout from "./components/Layout";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div>
+    <Router>
       <Layout>
-        <div></div>
+        <Routes>
+          <Route path="/" element={<PostList />} />
+          {/* 記事詳細ページ */}
+          <Route path="/posts/:id" element={<PostDetail />} />
+        </Routes>
       </Layout>
-    </div>
+    </Router>
   );
-}
+};
 
 export default App;
