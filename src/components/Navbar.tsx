@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -9,7 +8,9 @@ const Navbar = () => {
           Blog
         </Link>
         <ul>
-          <li className="text-base font-bold">お問い合わせ</li>
+          <Link to="/contact" className="text-base font-bold">
+            <li className="text-base font-bold">お問い合わせ</li>
+          </Link>
         </ul>
       </div>
     </nav>
