@@ -8,7 +8,7 @@ interface ContactFormInputs {
   message: string;
 }
 
-const ContactForm = () => {
+const ContactForm: React.FC = () => {
   const {
     register,
     handleSubmit,

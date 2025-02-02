@@ -1,6 +1,6 @@
 import ContactForm from "../components/ContactForm";
 
-const Contact = () => {
+const Contact: React.FC = () => {
   return (
     <div className="container">
       <ContactForm />

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PostCard from "../components/PostCard";
 import { Post } from "../types/postTypes";
 
-const PostList = () => {
+const PostList: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
