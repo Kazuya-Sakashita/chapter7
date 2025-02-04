@@ -1,30 +1,36 @@
-import React from "react";
-import { UseFormRegister, FieldError } from "react-hook-form";
+import React, {
+  ElementType,
+  ComponentPropsWithoutRef,
+  forwardRef,
+} from "react";
+import { FieldError } from "react-hook-form";
 import ErrorMessage from "./ErrorMessage";
-import { InputProps } from "../../types/commonTypes";
 
-const Input: React.FC<InputProps> = ({
-  id,
-  type = "text",
-  register,
-  errors,
-  ...props
-}) => {
-  return (
-    <div className="w-full">
-      <input
-        id={id}
-        type={type}
-        className={`border rounded-lg p-4 w-full ${
-          errors ? "border-red-500" : "border-gray-300"
-        }`}
-        {...register}
-        {...props}
-      />
-      {/* ErrorMessage コンポーネントを使用 */}
-      {errors?.message && <ErrorMessage message={errors.message} />}
-    </div>
-  );
-};
+type InputProps<T extends ElementType> = {
+  as?: T;
+  errors?: FieldError;
+} & ComponentPropsWithoutRef<T>;
+
+const Input = forwardRef(
+  <T extends ElementType = "input">(
+    { as, errors, className, ...props }: InputProps<T>,
+    ref: React.Ref<any>
+  ) => {
+    const Component = as || "input"; // `input` をデフォルトとし、`textarea` などを切り替え可能に
+
+    return (
+      <div className="w-full">
+        <Component
+          ref={ref}
+          {...props}
+          className={`border rounded-lg p-4 w-full ${
+            errors ? "border-red-500" : "border-gray-300"
+          } ${className}`}
+        />
+        {errors?.message && <ErrorMessage message={errors.message} />}
+      </div>
+    );
+  }
+);
 
 export default Input;

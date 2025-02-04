@@ -56,14 +56,15 @@ const ContactForm: React.FC = () => {
           <Label htmlFor="name">お名前</Label>
           <Input
             id="name"
-            register={register("name", {
+            {...register("name", {
               required: "お名前は必須です。",
               maxLength: {
                 value: 30,
                 message: "30文字以内で入力してください。",
               },
             })}
-            errors={errors.name}
+            errors={errors?.name}
+            placeholder="お名前を入力"
           />
         </div>
 
@@ -72,14 +73,15 @@ const ContactForm: React.FC = () => {
           <Input
             id="email"
             type="email"
-            register={register("email", {
+            {...register("email", {
               required: "メールアドレスは必須です。",
               pattern: {
                 value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                 message: "正しいメールアドレスを入力してください。",
               },
             })}
-            errors={errors.email}
+            errors={errors?.email}
+            placeholder="メールアドレスを入力"
           />
         </div>
 
@@ -87,15 +89,17 @@ const ContactForm: React.FC = () => {
           <Label htmlFor="message">本文</Label>
           <Input
             id="message"
-            type="textarea"
-            register={register("message", {
+            as="textarea"
+            rows={8}
+            {...register("message", {
               required: "本文は必須です。",
               maxLength: {
                 value: 500,
                 message: "本文は500文字以内で入力してください。",
               },
             })}
-            errors={errors.message}
+            errors={errors?.message}
+            placeholder="本文を入力"
           />
         </div>
 
